@@ -664,6 +664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tr: {fileID: 1776350885}
   moveSpeed: 10
+  turnSpeed: 80
 --- !u!4 &1776350885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400046, guid: f3cd25b3bf53c4adaaf087d862e435e6, type: 3}
