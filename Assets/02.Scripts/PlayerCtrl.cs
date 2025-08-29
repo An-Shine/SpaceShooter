@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour
 {
-    [SerializeField]    Transform tr;
-    [SerializeField]    float moveSpeed = 10.0f;
-    [SerializeField]    float turnSpeed = 80.0f;
+    Transform tr;
+    [SerializeField] float moveSpeed = 10.0f;
+    [SerializeField] float turnSpeed = 80.0f;
+    Animation anim;
     void Start()
     {
         tr = GetComponent<Transform>();
+        anim = GetComponent<Animation>();
+
+        anim.Play("Idle");
     }
     void Update()
     {
@@ -27,5 +31,35 @@ public class PlayerCtrl : MonoBehaviour
         Vector3 moveDir = (Vector3.forward * v) + (Vector3.right * h);
         tr.Translate(moveDir * moveSpeed * Time.deltaTime);
         tr.Rotate(Vector3.up * turnSpeed * Time.deltaTime * r);
+        PlayerAnim(h, v);
+
+    }
+    void PlayerAnim(float h, float v)
+    {
+        if (v >= 0.1f)
+        {
+            anim.CrossFade("RunF", 0.25f);
+        }
+        else if (v <= -0.1f)
+        {
+            anim.CrossFade("RunB", 0.25f);
+        }
+        else if (h >= 0.1f)
+        {
+            anim.CrossFade("RunR", 0.25f);
+        }
+        else if (h < -0.1f)
+        {
+            anim.CrossFade("RunL", 0.25f);
+        }
+        else
+        {
+            anim.CrossFade("Idle", 0.25f);
+        }
+
+        
+        
+
+        
     }
 }
