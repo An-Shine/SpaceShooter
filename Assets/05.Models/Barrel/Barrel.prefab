@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -95,7 +95,9 @@ GameObject:
   - component: {fileID: 11100000}
   - component: {fileID: 5824716471620942549}
   - component: {fileID: 2242338566368957296}
-  m_Layer: 0
+  - component: {fileID: 2511690086779903887}
+  - component: {fileID: 2192099544674204513}
+  m_Layer: 3
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +114,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.801896, y: 6.159115, z: -21.852272}
-  m_LocalScale: {x: 0.28014052, y: 0.28014052, z: 0.28014052}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 400000}
@@ -179,7 +181,37 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.9213792
-  m_Height: 7.5938363
+  m_Radius: 1.9551543
+  m_Height: 5.864475
   m_Direction: 1
-  m_Center: {x: 0, y: 2.1749353, z: 0.058757722}
+  m_Center: {x: 0.017062208, y: 2.9322374, z: 0.6523601}
+--- !u!114 &2511690086779903887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6426319aa55393419bf5df3f198cac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sparkEffect: {fileID: 1000011945391522, guid: 78b71003e8b357d4bbf89c8b5e5e4f0e, type: 3}
+--- !u!114 &2192099544674204513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f4edbbed206dc4487b0d409b96aa7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expEffect: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
+  textures:
+  - {fileID: 2800000, guid: e1f2b37b381e6d14a8a01ddd49a84a58, type: 3}
+  - {fileID: 2800000, guid: 0aa4112bfd022aa47919f151ba79ddc1, type: 3}
+  - {fileID: 2800000, guid: d38462a18d74e454aaf079b02bc753cd, type: 3}
