@@ -37,7 +37,7 @@ public class BarrelCtrl : MonoBehaviour
 
 
     }
-
+    //충돌시 발생하는 콜백 함수
     void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("BULLET"))
@@ -50,21 +50,22 @@ public class BarrelCtrl : MonoBehaviour
     }
     void ExpBarrel()
     {
-        GameObject exp = Instantiate(expEffect, tr.position, Quaternion.identity);
+        GameObject exp = Instantiate(expEffect, tr.position, Quaternion.identity); //폭발파티클 효과 생성
         Destroy(exp, DESTROY_EXP);
         //rb.mass = BARREL_MASS;
         //rb.AddForce(Vector3.up * UP_FORCE);
-        IndirectDamage(tr.position);
+        IndirectDamage(tr.position);        //간접 폭발력 전달
 
         Destroy(gameObject, DESTROY_BARREL);
 
 
     }
 
-    void IndirectDamage(Vector3 pos)
+    void IndirectDamage(Vector3 pos)    //폭발력을 주위에 전달하는 함수
     {
-        //Collider[] colls = Physics.OverlapSphere(pos, radius, 1 << 3);
-        Physics.OverlapSphereNonAlloc(pos, radius, colls, 1 << 3);
+        Collider[] colls = Physics.OverlapSphere(pos, radius, 1 << 3);      
+        // //주변에 있는 드럼통을 모두 추출
+        //Physics.OverlapSphereNonAlloc(pos, radius, colls, 1 << 3);
         foreach (var item in colls)
         {
             if (item == null) continue;

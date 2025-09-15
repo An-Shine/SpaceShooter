@@ -9,13 +9,18 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] float moveSpeed = 10.0f;
     [SerializeField] float turnSpeed = 80.0f;
     Animation anim;
-    void Start()
+    IEnumerator Start()
     {
         tr = GetComponent<Transform>();
         anim = GetComponent<Animation>();
 
         anim.Play("Idle");
+
+        turnSpeed = 0.0f;
+        yield return new WaitForSeconds(0.3f);
+        turnSpeed = 80.0f;
     }
+    
     void Update()
     {
         float h = Input.GetAxis("Horizontal");
