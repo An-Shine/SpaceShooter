@@ -6,15 +6,22 @@ public class FireCtrl : MonoBehaviour
 {
     public GameObject bullet;
     public Transform firePos;
+    public AudioClip fireSfx;
+    private new AudioSource audio;
+    MeshRenderer muzzleFlash;
+
+
     void Start()
     {
-
+        audio = GetComponent<AudioSource>();
+        muzzleFlash = firePos.GetComponentInChildren<MeshRenderer>();
+        muzzleFlash.enabled = false;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             Fire();
         }
@@ -22,5 +29,6 @@ public class FireCtrl : MonoBehaviour
     void Fire()
     {
         Instantiate(bullet, firePos.position, firePos.rotation);
+        audio.PlayOneShot(fireSfx, 1.0f);
     }
 }
