@@ -40,7 +40,7 @@ public class BarrelCtrl : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Bullet"))
+        if (collision.collider.CompareTag("BULLET"))
         {
             if (++hitCount == HIT_COUNT)
             {

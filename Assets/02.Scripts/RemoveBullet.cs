@@ -6,17 +6,16 @@ using UnityEngine;
 public class RemoveBullet : MonoBehaviour
 {
     public GameObject sparkEffect;
-    // Start is called before the first frame update
+    
     void OnCollisionEnter(Collision collision)
     {
-        //if (collision.collider.tag == "Bullet")
-        //if(collision.gameObject.tag == "Bulet")
-        if(collision.collider.CompareTag("Bullet"))
-        {
-            ContactPoint cp = collision.GetContact(0);
-            Quaternion rot = Quaternion.LookRotation(-cp.normal);
-            //Instantiate(sparkEffect, cp.point, rot);
-            GameObject spark = Instantiate(sparkEffect, cp.point, rot);
+        
+        if(collision.collider.CompareTag("BULLET"))
+        {          
+            ContactPoint cp = collision.GetContact(0);                  //첫번째 충돌지점의 정보 추출
+            Quaternion rot = Quaternion.LookRotation(-cp.normal);       //충돌한 총알의 법선벡터를 쿼터니언타입으로 변환
+            GameObject spark = Instantiate(sparkEffect, cp.point, rot);     //스파크 파티클을 동적으로 생성
+
             Destroy(spark, 0.5f);
 
             Destroy(collision.gameObject);
