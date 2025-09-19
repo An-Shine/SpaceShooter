@@ -27,7 +27,10 @@ public class MonsterCtrl : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();                                       // NavMeshAgent 컴포넌트 할당
 
-        agent.destination = playerTr.position;                                      // 추적대상의 위치를 설정하면 바로 추적시작
+        //agent.destination = playerTr.position;                                      // 추적대상의 위치를 설정하면 바로 추적시작
+
+        StartCoroutine(CheckMonsterState());
+        StartCoroutine(MonsterAction());
 
     }
 
@@ -54,7 +57,7 @@ public class MonsterCtrl : MonoBehaviour
         }
     }
 
-    void OawGizmos()
+    void ODrawGizmos()
     {
         if (state == State.TRACE)       //추적 사정거리 표시
         {
@@ -66,6 +69,31 @@ public class MonsterCtrl : MonoBehaviour
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackDist);
+        }
+    }
+
+    IEnumerator MonsterAction()
+    {
+        while (!isDie)
+        {
+            switch (state)
+            {
+                case State.IDLE:
+                    agent.isStopped = true;
+                    break;
+
+                case State.TRACE:
+                    agent.SetDestination(playerTr.position);
+                    agent.isStopped = false;
+                    break;
+
+                case State.ATTACK:
+                    break;
+
+                case State.DIE:
+                    break;
+            }
+            yield return new WaitForSeconds(0.3f);
         }
     }
 
