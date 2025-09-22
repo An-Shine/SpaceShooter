@@ -9,6 +9,14 @@ public class MonsterCtrl : MonoBehaviour
     private Transform monsterTr;
     private Transform playerTr;
     private NavMeshAgent agent;
+    private Animator anim;
+
+
+    //Animator parameter Hash 값 추출    
+    private readonly int hashTrace = Animator.StringToHash("IsTrace");
+    private readonly int hashAttack = Animator.StringToHash("IsAttack");
+    private readonly int hashHit = Animator.StringToHash("Hit");
+
 
     public enum State
     {
@@ -19,6 +27,7 @@ public class MonsterCtrl : MonoBehaviour
     public float attackDist = 2.0f;         // 공격 사정거리
     public bool isDie = false;              // 몬스터의 사망 여부
 
+
     void Start()
     {
         monsterTr = GetComponent<Transform>();                                      // 몬스터의 Transform 할당
@@ -28,6 +37,8 @@ public class MonsterCtrl : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();                                       // NavMeshAgent 컴포넌트 할당
 
         //agent.destination = playerTr.position;                                      // 추적대상의 위치를 설정하면 바로 추적시작
+
+        anim = GetComponent<Animator>();
 
         StartCoroutine(CheckMonsterState());
         StartCoroutine(MonsterAction());
@@ -53,11 +64,11 @@ public class MonsterCtrl : MonoBehaviour
             else
             {
                 state = State.IDLE;
-            }            
+            }
         }
     }
 
-    void ODrawGizmos()
+    void OnDrawGizmos()
     {
         if (state == State.TRACE)       //추적 사정거리 표시
         {
@@ -80,14 +91,18 @@ public class MonsterCtrl : MonoBehaviour
             {
                 case State.IDLE:
                     agent.isStopped = true;
+                    anim.SetBool(hashTrace, false);
                     break;
 
                 case State.TRACE:
                     agent.SetDestination(playerTr.position);
                     agent.isStopped = false;
+                    anim.SetBool(hashTrace, true);
+                    anim.SetBool(hashAttack, false);
                     break;
 
                 case State.ATTACK:
+                    anim.SetBool(hashAttack, true);
                     break;
 
                 case State.DIE:
@@ -96,10 +111,14 @@ public class MonsterCtrl : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
         }
     }
-
-
-    void Update()
+    void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.collider.CompareTag("BULLET"))
+        {
+            //총알 삭제
+            Destroy(collision.gameObject);
+            //피격 애니메이션 실행
+            anim.SetTrigger(hashHit);
+        }
     }
 }
