@@ -9,8 +9,14 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] float moveSpeed = 10.0f;
     [SerializeField] float turnSpeed = 80.0f;
     Animation anim;
+    public float currHp;
+    const float PUNCH_POWER = 10.0f;
+    const float TIME_INTER = 0.25f;
+    const float INPUT_VALUE = 0.1f;
+    const float INIT_HP = 100.0f;
     IEnumerator Start()
     {
+        currHp = INIT_HP;
         tr = GetComponent<Transform>();
         anim = GetComponent<Animation>();
 
@@ -20,7 +26,7 @@ public class PlayerCtrl : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         turnSpeed = 80.0f;
     }
-    
+
     void Update()
     {
         float h = Input.GetAxis("Horizontal");
@@ -62,9 +68,31 @@ public class PlayerCtrl : MonoBehaviour
             anim.CrossFade("Idle", 0.25f);
         }
 
-        
-        
 
-        
+
+
+
+    }
+    void OnTriggerEnter(Collider coll)
+    {
+        if (currHp > 0.0f && coll.CompareTag("PUNCH"))
+        {
+            currHp -= PUNCH_POWER;
+            Debug.Log($"Player HP={currHp / INIT_HP}");
+            //Debug.LogFormat("Player HP = {0}", currHp / INIT_HP);
+            if (currHp <= 0.0f)
+            {
+                PlayerDie();
+            }
+        }
+    }
+    void PlayerDie()
+    {
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        foreach (GameObject monster in monsters)
+        {
+            monster.SendMessage("OnPlayerDie", SendMessageOptions.DontRequireReceiver);
+        }
+        Debug.Log("Player Die!");
     }
 }
