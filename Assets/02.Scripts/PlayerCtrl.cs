@@ -14,6 +14,14 @@ public class PlayerCtrl : MonoBehaviour
     const float TIME_INTER = 0.25f;
     const float INPUT_VALUE = 0.1f;
     const float INIT_HP = 100.0f;
+
+    //delegate 선언
+    public delegate void PlayerDieHandler();
+
+    //event 선언, 아무때나 불러쓸수있도록 static
+    public static event PlayerDieHandler OnPlayerDie;
+
+
     IEnumerator Start()
     {
         currHp = INIT_HP;
@@ -86,13 +94,21 @@ public class PlayerCtrl : MonoBehaviour
             }
         }
     }
+
     void PlayerDie()
     {
-        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
-        foreach (GameObject monster in monsters)
-        {
-            monster.SendMessage("OnPlayerDie", SendMessageOptions.DontRequireReceiver);
-        }
         Debug.Log("Player Die!");
+        /*
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+        foreach (var item in monsters)
+        {
+            //monster.SendMessage("OnPlayerDie", SendMessageOptions.DontRequireReceiver);
+            item.SendMessage("OnPlayerDie", SendMessageOptions.DontRequireReceiver);
+        }
+        */
+        OnPlayerDie();
+        
     }
+    
+    
 }
