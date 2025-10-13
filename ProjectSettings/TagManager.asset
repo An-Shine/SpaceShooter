@@ -10,6 +10,7 @@ TagManager:
   - MONSTER_BODY
   - PUNCH
   - Monster
+  - HP_Bar
   layers:
   - Default
   - TransparentFX

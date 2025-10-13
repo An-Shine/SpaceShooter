@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour
 {
@@ -9,11 +10,15 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] float moveSpeed = 10.0f;
     [SerializeField] float turnSpeed = 80.0f;
     Animation anim;
+
+    readonly float initHp = 100.0f;
+    private Image hpBar;
     public float currHp;
     const float PUNCH_POWER = 10.0f;
     const float TIME_INTER = 0.25f;
     const float INPUT_VALUE = 0.1f;
     const float INIT_HP = 100.0f;
+    
 
     //delegate 선언
     public delegate void PlayerDieHandler();
@@ -24,7 +29,11 @@ public class PlayerCtrl : MonoBehaviour
 
     IEnumerator Start()
     {
+        //HP Bar
+        hpBar = GameObject.FindGameObjectWithTag("HP_Bar")?.GetComponent<Image>();
         currHp = INIT_HP;
+        DisplayHealth();
+
         tr = GetComponent<Transform>();
         anim = GetComponent<Animation>();
 
@@ -33,6 +42,7 @@ public class PlayerCtrl : MonoBehaviour
         turnSpeed = 0.0f;
         yield return new WaitForSeconds(0.3f);
         turnSpeed = 80.0f;
+        
     }
 
     void Update()
@@ -75,11 +85,6 @@ public class PlayerCtrl : MonoBehaviour
         {
             anim.CrossFade("Idle", 0.25f);
         }
-
-
-
-
-
     }
     void OnTriggerEnter(Collider coll)
     {
@@ -87,12 +92,18 @@ public class PlayerCtrl : MonoBehaviour
         {
             currHp -= PUNCH_POWER;
             Debug.Log($"Player HP={currHp / INIT_HP}");
+            DisplayHealth();
             //Debug.LogFormat("Player HP = {0}", currHp / INIT_HP);
             if (currHp <= 0.0f)
             {
                 PlayerDie();
             }
         }
+    }
+
+    void DisplayHealth()
+    {
+        hpBar.fillAmount = currHp / initHp;
     }
 
     void PlayerDie()
