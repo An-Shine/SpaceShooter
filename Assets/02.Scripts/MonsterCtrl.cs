@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class MonsterCtrl : MonoBehaviour
 {
@@ -133,6 +134,17 @@ public class MonsterCtrl : MonoBehaviour
                     anim.SetTrigger(hashDie);
                     //몬스터 Collider 비활성화
                     DisableCollider();
+
+                    //사망 후 다시사용할 때를 위한 hp 값 초기화
+                    yield return new WaitForSeconds(3.0f);
+                    hp = 100;
+                    isDie = false;
+
+                    //몬스터 Collider 활성화
+                    GetComponent<CapsuleCollider>().enabled = true;
+                    //몬스터 비활성화
+                    this.gameObject.SetActive(false);
+
                     break;
             }
             yield return new WaitForSeconds(0.3f);
@@ -177,7 +189,7 @@ public class MonsterCtrl : MonoBehaviour
         agent.isStopped = true;
         anim.SetFloat(hashSpeed, Random.Range(0.8f, 1.2f));
         anim.SetTrigger(hashPlayerDie);
-
+        
     }
 
     void OnTriggerEnter(Collider coll)

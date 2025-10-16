@@ -119,7 +119,8 @@ public class PlayerCtrl : MonoBehaviour
         */
         OnPlayerDie();
         // GameManager 에 있는 IsGameOver 프로퍼티 값 변경
-        GameObject.Find("GameMgr").GetComponent<GameManager>().IsGameOver = true;
+        //GameObject.Find("GameMgr").GetComponent<GameManager>().IsGameOver = true;
+        GameManager.instance.IsGameOver = true;
         
     }
     

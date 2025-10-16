@@ -303,6 +303,9 @@ MonoBehaviour:
   traceDist: 10
   attackDist: 2
   isDie: 0
+  body: {fileID: 72681318983643806}
+  punch: []
+  TIME_WAIT: 0.3
 --- !u!136 &72681318983643806
 CapsuleCollider:
   m_ObjectHideFlags: 0

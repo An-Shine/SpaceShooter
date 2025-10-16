@@ -8,8 +8,10 @@ public class GameManager : MySingleton<GameManager>
 {
     //public Transform[] points;      //몬스터 출현위치 저장 배열
     public List<Transform> points = new List<Transform>();      //몬스터 출현위치 저장 List
+    public List<GameObject> monsterPool = new List<GameObject>();   //몬스터를 미리 생성해 저장할 리스트 자료형
+    public int maxMonsters = 10;
     public GameObject monster;
-    public float createTime;
+    public float createTime = 3.0f;
     bool isGameOver;
 
     public bool IsGameOver
@@ -41,6 +43,9 @@ public class GameManager : MySingleton<GameManager>
 
     void Start()
     {
+        CreateMonsterPool();
+        // 몬스터 오브젝트 풀 생성
+
         /*
         GameObject go = GameObject.Find("SPG");
         if(go!=null)
@@ -67,7 +72,35 @@ public class GameManager : MySingleton<GameManager>
     void CreateMonster()
     {
         int idx = Random.Range(0, points.Count);
-        Instantiate(monster, points[idx].position, points[idx].rotation);
+        //Instantiate(monster, points[idx].position, points[idx].rotation);
+        //오브젝트 풀에서 몬스터 추출
+        GameObject _monster = GetMonsterInPool();
+        //추출한 몬스터의 위치와 회전값 설정
+        _monster?.transform.SetLocalPositionAndRotation(points[idx].position, points[idx].rotation);
+        //추출한 몬스터를 활성화
+        _monster?.SetActive(true);
+    }
+    void CreateMonsterPool()
+    {
+        for (int i = 0; i < maxMonsters; i++)
+        {
+            var _monster = Instantiate<GameObject>(monster);    //몬스터 생성
+            _monster.name = $"Monster_{i:00}";                  //몬스터 이름을 지정
+            _monster.SetActive(false);                          //몬스터 비활성화
+            monsterPool.Add(_monster);                    //생성한 몬스터를 오브젝트 풀에 추가
+        }
+    }
+    
+    public GameObject GetMonsterInPool()
+    {
+        foreach (var _monster in monsterPool)
+        {
+            if (_monster.activeSelf == false)
+            {
+                return _monster;
+            }
+        }
+        return null;
     }
 
     
