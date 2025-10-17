@@ -9,7 +9,7 @@ public class FireCtrl : MonoBehaviour
     public AudioClip fireSfx;
     private new AudioSource audio;
     private MeshRenderer muzzleFlash;
-    bool isPlayerDie = false;
+    
 
     void OnEnable()
     {

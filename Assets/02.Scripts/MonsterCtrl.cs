@@ -22,7 +22,9 @@ public class MonsterCtrl : MonoBehaviour
     private readonly int hashSpeed = Animator.StringToHash("Speed");
     private readonly int hashDie = Animator.StringToHash("Die");
 
+
     private int hp = 100;
+    const int SCORE_Die = 50;
 
 
     public enum State
@@ -177,6 +179,7 @@ public class MonsterCtrl : MonoBehaviour
             if (hp <= 0)
             {
                 state = State.DIE;
+                GameManager.Instance.DisplayScore(SCORE_Die);
             }
 
 

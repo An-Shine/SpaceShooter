@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using UnityEditor;
 
 public class GameManager : MySingleton<GameManager>
 {
@@ -12,7 +14,10 @@ public class GameManager : MySingleton<GameManager>
     public int maxMonsters = 10;
     public GameObject monster;
     public float createTime = 3.0f;
+    public TMP_Text scoreText;
+    int totScore = 0;
     bool isGameOver;
+
 
     public bool IsGameOver
     {
@@ -67,6 +72,10 @@ public class GameManager : MySingleton<GameManager>
         }
 
         InvokeRepeating("CreateMonster", 2.0f, createTime); //2초 기다렸다가 3초간격으로반복해라
+
+        //점수 보여줌
+        totScore = PlayerPrefs.GetInt("TOT_SCORE", 0);  //key 값을 가져오겠다
+        DisplayScore(0);
     }
 
     void CreateMonster()
@@ -90,7 +99,7 @@ public class GameManager : MySingleton<GameManager>
             monsterPool.Add(_monster);                    //생성한 몬스터를 오브젝트 풀에 추가
         }
     }
-    
+
     public GameObject GetMonsterInPool()
     {
         foreach (var _monster in monsterPool)
@@ -101,6 +110,23 @@ public class GameManager : MySingleton<GameManager>
             }
         }
         return null;
+    }
+    /// <summary>
+    /// 점수를 누적하고 출력하는 함수
+    /// </summary>
+    /// <param name="score"></param>
+    public void DisplayScore(int score)
+    {
+        totScore += score;
+        scoreText.text = $"<color=#00ff00>Score : </color><color=#ff0000>{totScore:#,##0}</color>";
+        PlayerPrefs.SetInt("TOT_SCORE", totScore);
+    }
+
+    [MenuItem("AKH/Reset Score")]
+    public static void ResetScore()
+    {
+        PlayerPrefs.SetInt("TOT_SCORE", 0);
+        Debug.Log("Reset Score....");
     }
 
     
