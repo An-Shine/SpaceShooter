@@ -9,6 +9,8 @@ public class FireCtrl : MonoBehaviour
     public AudioClip fireSfx;
     private new AudioSource audio;
     private MeshRenderer muzzleFlash;
+    bool isPlayerDie = false;
+    private RaycastHit hit;
     
 
     void OnEnable()
@@ -31,9 +33,17 @@ public class FireCtrl : MonoBehaviour
 
     void Update()
     {
+
+        
+        Debug.DrawRay(firePos.position, firePos.forward * 10.0f, Color.green);
+
         if (Input.GetMouseButtonDown(0))
         {
             Fire();
+        }
+        if (Physics.Raycast(firePos.position, firePos.forward, out hit, 10.0f, 1 << 6))
+        {
+            Debug.Log($"Hit = {hit.transform.name}");
         }
     }
     void Fire()
