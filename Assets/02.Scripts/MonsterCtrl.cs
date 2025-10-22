@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -190,9 +191,32 @@ public class MonsterCtrl : MonoBehaviour
     {
         StopAllCoroutines();
         agent.isStopped = true;
-        anim.SetFloat(hashSpeed, Random.Range(0.8f, 1.2f));
+        anim.SetFloat(hashSpeed, UnityEngine.Random.Range(0.8f, 1.2f));
         anim.SetTrigger(hashPlayerDie);
-        
+
+    }
+
+    void Awake()
+    {
+        monsterTr = GetComponent<Transform>();      //몬스터의 transform 할당
+        playerTr = GameObject.FindWithTag("PLAYER").GetComponent<Transform>();      //추적대상인 Player의 trasnform 할당
+        agent = GetComponent<NavMeshAgent>();       //NavMeshAgent  컴포넌트 할당
+        agent.updateRotation = false;               //NavMeshAgent 자동회전기능 비활성화
+        anim = GetComponent<Animator>();            //Animator 컴포넌트 할당
+        //bloodEffect = Resources.Load<GameObject>("BloodSprayEffect");
+    }
+    void Update()
+    {
+        //목적지 까지 남은거리로 회전여부 판단
+        if(agent.remainingDistance >= 2.0f)
+        {
+            //이동방향
+            Vector3 direction = agent.desiredVelocity;
+            //회전각도 산출
+            Quaternion rot = Quaternion.LookRotation(direction);
+            //Slerp 를 이용해서 부드러운 회전처리
+            monsterTr.rotation = Quaternion.Slerp(monsterTr.rotation, rot, Time.deltaTime * 10.0f);   
+        }        
     }
 
     void OnTriggerEnter(Collider coll)
