@@ -415,12 +415,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 258702583}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17, y: 0, z: 14.6}
-  m_LocalScale: {x: 1.5, y: 0.1, z: 10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.2395735, y: -0.31834286, z: 6.4999847}
+  m_LocalScale: {x: 1.5, y: 0.06666667, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1399575384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &261301849
 PrefabInstance:
@@ -655,12 +655,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371609585}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.88, y: 0, z: 14.6}
-  m_LocalScale: {x: 1.5, y: 0.1, z: 10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -7.1195736, y: -0.31834286, z: 6.4999847}
+  m_LocalScale: {x: 1.5, y: 0.06666667, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1399575384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &375634955 stripped
 SkinnedMeshRenderer:
@@ -1162,12 +1162,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 437965017}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.12, y: 0, z: 14.6}
-  m_LocalScale: {x: 1.5, y: 0.1, z: 10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.359573, y: -0.31834286, z: 6.4999847}
+  m_LocalScale: {x: 1.5, y: 0.06666667, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1399575384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &457130972
 GameObject:
@@ -1747,7 +1747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &705507994
 Light:
   m_ObjectHideFlags: 0
@@ -2919,6 +2919,9 @@ Transform:
   - {fileID: 1703462520}
   - {fileID: 1376395629}
   - {fileID: 7611171792944706643}
+  - {fileID: 258702588}
+  - {fileID: 437965022}
+  - {fileID: 371609590}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1415942639 stripped
@@ -4284,6 +4287,3 @@ SceneRoots:
   - {fileID: 1131752227}
   - {fileID: 1399575384}
   - {fileID: 421471483}
-  - {fileID: 258702588}
-  - {fileID: 437965022}
-  - {fileID: 371609590}
