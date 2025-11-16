@@ -52,8 +52,8 @@ public class BarrelCtrl : MonoBehaviour
     {
         GameObject exp = Instantiate(expEffect, tr.position, Quaternion.identity); //폭발파티클 효과 생성
         Destroy(exp, DESTROY_EXP);
-        //rb.mass = BARREL_MASS;
-        //rb.AddForce(Vector3.up * UP_FORCE);
+        rb.mass = BARREL_MASS;
+        rb.AddForce(Vector3.up * UP_FORCE);
         IndirectDamage(tr.position);        //간접 폭발력 전달
 
         Destroy(gameObject, DESTROY_BARREL);
